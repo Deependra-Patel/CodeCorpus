@@ -17,12 +17,13 @@ public class LoginBackend {
 			pstmt.setString(1, handle);
 			pstmt.setString(2, passwd);
 			ResultSet rs = pstmt.executeQuery();
+			jd.destroy();
 			if(rs.next())
 				return "true";
 			else return "Invalid Username/Password";
 		} catch (ServletException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace(); 
 			return "Server Down";
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

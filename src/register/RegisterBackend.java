@@ -68,6 +68,7 @@ public class RegisterBackend {
 						System.out.println("Error inserting in attempted. query: "+query);
 				      }
 			      }
+			      jd.destroy();
 
 			} catch (SQLException e) { 
 				// TODO Auto-generated catch block

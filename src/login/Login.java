@@ -29,6 +29,7 @@ public class Login extends HttpServlet {
 		else {
 			PrintWriter pr =  response.getWriter();
 			pr.print(res);
+			System.out.println(res);
 		}
 	}
 }
