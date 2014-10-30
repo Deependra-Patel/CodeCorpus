@@ -1,6 +1,7 @@
 package profile;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -24,8 +25,11 @@ public class ProblemDetails extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String code = request.getParameter("code");
 		ProfileBackend problemDetails = new ProfileBackend();
-		ArrayList<String> details = problemDetails.details(code);
-		System.out.println(details);
+		ProblemDetailsObj obj = new ProblemDetailsObj();
+		obj = problemDetails.details(code);
+		request.setAttribute("details", obj.problemInfo);
+		request.setAttribute("tags", obj.problemTags);		
+		request.getRequestDispatcher("./problemInfo.jsp").forward(request, response);
 	}
 
 }

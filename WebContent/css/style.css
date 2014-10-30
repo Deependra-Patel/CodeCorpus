@@ -96,6 +96,7 @@ body {
 .img-circle{
 	height:100px;	
 }
-	
-	
+#settings a{
+	cursor:pointer;
+}
 	

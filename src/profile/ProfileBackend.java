@@ -14,21 +14,27 @@ class UserDetails{
 	ArrayList<String> problemsAttempted = new ArrayList<String>();
 	ArrayList<String> problemsSolved = new ArrayList<String>();
 	ArrayList<String> interests = new ArrayList<String>();	
-} 
+	ArrayList<String> followers = new ArrayList<String>();		
+}  
+class ProblemDetailsObj{
+	ArrayList<String> problemInfo = new ArrayList<String>();
+	ArrayList<String> problemTags = new ArrayList<String>();	
+}
 public class ProfileBackend {
 	 UserDetails profileDetails(String handle){
 		try {
+			int userid;
 			UserDetails ud = new UserDetails();
 			JdbcSetup jd = null;
 			jd = new JdbcSetup();
 			PreparedStatement pstmt = null;
 			String selectSql = "SELECT userid, handle, rank, (personal).name, (personal).dob, (personal).region, (personal).email_id, (personal).institution FROM users WHERE handle=?";
-			
 			pstmt = jd.conn1.prepareStatement(selectSql);
 			pstmt.setString(1, handle);
 			ResultSet rs = pstmt.executeQuery();
 			
 			if(rs.next()){
+				userid = rs.getInt(1);
 				ud.personalDetail.add(String.valueOf(rs.getInt(1)));
 				ud.personalDetail.add(rs.getString(2));
 				ud.personalDetail.add(String.valueOf(rs.getInt(3)));
@@ -49,14 +55,30 @@ public class ProfileBackend {
 				ud.problemsAttempted.add(rs.getString(1));
 				ud.problemsSolved.add(String.valueOf(rs.getBoolean(2)));
 			}
-			
+			System.out.println(selectSql); 
 			selectSql = "SELECT tags.name from users NATURAL JOIN users_interests INNER JOIN tags ON users_interests.tagid=tags.tagid WHERE handle=?";
 			pstmt = jd.conn1.prepareStatement(selectSql);
 			pstmt.setString(1, handle);
 			rs = pstmt.executeQuery();
-			jd.destroy();
 			while(rs.next()){
 				ud.interests.add(rs.getString(1));
+			}	
+			System.out.println(selectSql); 
+			selectSql = "SELECT tags.name from users NATURAL JOIN users_interests INNER JOIN tags ON users_interests.tagid=tags.tagid WHERE handle=?";
+			pstmt = jd.conn1.prepareStatement(selectSql);
+			pstmt.setString(1, handle);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				ud.interests.add(rs.getString(1));
+			}
+			System.out.println("userid"+userid);
+			selectSql = "SELECT users.handle from followers INNER JOIN users ON users.userid=followers.follower where followers.followed = ?";
+			pstmt = jd.conn1.prepareStatement(selectSql);
+			pstmt.setInt(1, userid);
+			rs = pstmt.executeQuery();
+			jd.destroy();
+			while(rs.next()){
+				ud.followers.add(rs.getString(1));
 			}			
 			return ud;
 			
@@ -72,7 +94,7 @@ public class ProfileBackend {
 			return null;
 		}
 	}
-	 ArrayList<String> details(String code){
+	 ProblemDetailsObj details(String code){
 			JdbcSetup jd;
 			try {
 				jd = new JdbcSetup();
@@ -83,9 +105,9 @@ public class ProfileBackend {
 					pstmt = jd.conn1.prepareStatement(selectSql);
 					pstmt.setString(1, code); 
 					ResultSet rs = pstmt.executeQuery();
-					ArrayList<String> details = new ArrayList<String>();
-					jd.destroy();
-					System.out.println("faltu");
+					ProblemDetailsObj problemDetails = new ProblemDetailsObj();
+					ArrayList<String> details = problemDetails.problemInfo;
+
 					if(rs.next()){
 						System.out.println(rs.getString(1));						
 						details.add(rs.getString(1));
@@ -95,9 +117,21 @@ public class ProfileBackend {
 						details.add(rs.getString(5));
 						details.add(rs.getString(6));
 						details.add(rs.getString(7));
-						return details;
 					}
-					else return null;					
+					
+					selectSql = "SELECT tagT.name from problems_tags as problemT natural join tags as tagT where problemT.code = ?";
+					pstmt = jd.conn1.prepareStatement(selectSql);
+					pstmt.setString(1, code); 
+					rs = pstmt.executeQuery();
+					details = problemDetails.problemTags;
+
+					while(rs.next()){
+						System.out.println(rs.getString(1));						
+						details.add(rs.getString(1));
+					}	
+					jd.destroy();					
+					return problemDetails;
+										
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

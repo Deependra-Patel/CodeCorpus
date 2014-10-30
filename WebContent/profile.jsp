@@ -27,6 +27,7 @@
 	ArrayList<String> problemsAttempted = (ArrayList)request.getAttribute("problemsAttempted");
 	ArrayList<String> problemsSolved = (ArrayList)request.getAttribute("problemsSolved");
 	ArrayList<String> interests = (ArrayList)request.getAttribute("interests");
+	ArrayList<String> followers = (ArrayList)request.getAttribute("followers");	
 	%>
     <div class="collapse navbar-collapse" id="loggedin">
       <ul class="nav navbar-nav navbar-right">
@@ -49,7 +50,7 @@
     
 <div class="container">
 	<div class="row">
-		<div class="col-lg-6 col-lg-offset-2 user-details">
+		<div class="col-lg-10 col-lg-offset-1 user-details">
             <div class="user-image">
                 <img src="./images/avatar1.jpg" alt="Avatar" class="img-circle">
             </div>
@@ -110,7 +111,7 @@
                             	<%	
                             	if(problemsAttempted!=null)
                             	for(String code: problemsAttempted){
-                            		out.println("<tr id='"+code+"'><td>"+code+"</td></tr>");
+                            		out.println("<tr id='"+code+"'><td><a '>"+code+"</a></td></tr>");
                             	}
                             	%>
                             </table>
@@ -119,15 +120,22 @@
                             <h4>Interests</h4>
                                <table class="table table-hover">
                             	<%	
-                            	if(interests!=null)
                             	for(String interest: interests){
-                            		out.println("<tr><td>"+interest+"</td></tr>");
+                            		out.println("<tr><td><a target='_blank' href = './tagProblems?tag=" + interest + "' class = 'btn btn-primary btn-xs'>" + interest + " </a></td></tr>");
                             	}
                             	%>
                             </table>                         
                         </div>
                         <div id="events" class="tab-pane">
-                            <h4>Events</h4>
+                            <h4>Followers</h4>
+                               <table class="table table-hover">
+                            	<%	
+                            	if(followers!=null)
+                            	for(String follower: followers){
+                            		out.println("<tr><td><a target='_blank' href = './profile?handle=" + follower + "' class = 'btn btn-primary btn-xs'>" + follower + " </a></td></tr>");
+                            	}
+                            	%>
+                            </table>                             
                         </div>
                     </div>
                 </div>

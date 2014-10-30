@@ -18,7 +18,7 @@ public class JdbcSetup {
 	public JdbcSetup() throws ServletException {
 	      //Open the connection here
 		
-		String dbURL2 = "jdbc:postgresql://10.105.1.12/cs387";
+		String dbURL2 = "jdbc:postgresql://10.105.15.120/cs387";
         String user = "db120050032";
         String pass = "faltu_passwd";
 

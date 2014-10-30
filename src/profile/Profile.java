@@ -22,12 +22,15 @@ public class Profile extends HttpServlet {
 		pairs = details.profileDetails(handle);
 		System.out.println(pairs.personalDetail);
 		System.out.println(pairs.interests);
+		System.out.println(pairs.followers); 		
 		request.setAttribute("details", pairs);
 		request.setAttribute("personalDetail", pairs.personalDetail);
 		request.setAttribute("problemsAttempted", pairs.problemsAttempted);
 		request.setAttribute("problemsSolved", pairs.problemsSolved);
 		request.setAttribute("interests", pairs.interests);
+		request.setAttribute("followers", pairs.followers);		
 		request.getRequestDispatcher("/profile.jsp").forward(request, response);
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
