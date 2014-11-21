@@ -143,4 +143,28 @@ public class ProfileBackend {
 				return null;
 			}		 
 	 }
+	 
+	void follow(int userid, boolean toFollow, int followed){
+		 try{
+			JdbcSetup jd = new JdbcSetup();
+			PreparedStatement pstmt = null;
+			String sql;
+			if(!toFollow){
+				sql = "DELETE from followers where follower=? and followed = ?";
+			}
+			else sql = "INSERT into followers values(?, ?)";
+			try {
+				pstmt = jd.conn1.prepareStatement(sql);
+				pstmt.setInt(1, userid);
+				pstmt.setInt(2, followed);
+				pstmt.executeQuery();				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		 }
+		 catch(ServletException e){
+			 e.printStackTrace();
+		 }			
+	 }
 }

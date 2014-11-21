@@ -3,6 +3,13 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+	<% 
+	ArrayList<String> personalDetail = (ArrayList)request.getAttribute("personalDetail");
+	ArrayList<String> problemsAttempted = (ArrayList)request.getAttribute("problemsAttempted");
+	ArrayList<String> problemsSolved = (ArrayList)request.getAttribute("problemsSolved");
+	ArrayList<String> interests = (ArrayList)request.getAttribute("interests");
+	ArrayList<String> followers = (ArrayList)request.getAttribute("followers");	
+	%> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,6 +17,19 @@
 <title>Insert title here</title>
 <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="./css/style.css" rel="stylesheet"/>
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="assets/plugins/line-icons/line-icons.css">
+    <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/plugins/revolution-slider/rs-plugin/css/settings.css" type="text/css" media="screen">
+    <!--[if lt IE 9]><link rel="stylesheet" href="assets/plugins/revolution-slider/rs-plugin/css/settings-ie8.css" type="text/css" media="screen"><![endif]-->
+
+
+    <!-- CSS Customization -->
+    <link rel="stylesheet" href="assets/css/custom.css">
 <script src="./js/jquery.js"></script>
 <script src="./bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" language="javascript">
@@ -21,35 +41,9 @@
 	});
 </script>
 </head>
-<body>
-	<% 
-	ArrayList<String> personalDetail = (ArrayList)request.getAttribute("personalDetail");
-	ArrayList<String> problemsAttempted = (ArrayList)request.getAttribute("problemsAttempted");
-	ArrayList<String> problemsSolved = (ArrayList)request.getAttribute("problemsSolved");
-	ArrayList<String> interests = (ArrayList)request.getAttribute("interests");
-	ArrayList<String> followers = (ArrayList)request.getAttribute("followers");	
-	%>
-    <div class="collapse navbar-collapse" id="loggedin">
-      <ul class="nav navbar-nav navbar-right">
-		<li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Iasmani Pinazo <span class="glyphicon glyphicon-user pull-right"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Account Settings <span class="glyphicon glyphicon-cog pull-right"></span></a></li>
-            <li class="divider"></li>
-            <li><a href="#">User stats <span class="glyphicon glyphicon-stats pull-right"></span></a></li>
-            <li class="divider"></li>
-            <li><a href="#">Messages <span class="badge pull-right"> 42 </span></a></li>
-            <li class="divider"></li>
-            <li><a href="#">Favourites Snippets <span class="glyphicon glyphicon-heart pull-right"></span></a></li>
-            <li class="divider"></li>
-            <li><a href="#">Sign Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
-          </ul>
-        </li>         
-      </ul>
-    </div>
-    
-<div class="container">
-	<div class="row">
+<body>   
+<div class="wrapper">
+		<jsp:include page="./header.jsp" />
 		<div class="col-lg-10 col-lg-offset-1 user-details">
             <div class="user-image">
                 <img src="./images/avatar1.jpg" alt="Avatar" class="img-circle">
@@ -58,26 +52,42 @@
                 <div class="user-heading">
                     <h3><%out.println(personalDetail.get(1)); %></h3>
                     <span class="help-block"><%out.println(personalDetail.get(7)+", "+personalDetail.get(5)); %></span>
+               		<%if(!personalDetail.get(1).equals(session.getAttribute("handle"))){ %>
+               		<form action="profile">
+               			<input type="hidden" name="handle" value="<%=personalDetail.get(1)%>">
+               			<%if(!followers.contains(session.getAttribute("handle"))){ %>
+	               			<input type="hidden" name="follow" value="<%=personalDetail.get(0)%>">
+		               		<button type="submit"  class="btn btn-success" style="top:0px;right:10px;">
+		               			Follow
+		               		</button>
+		               	<%} else { %>
+	               			<input type="hidden" name="unfollow" value="<%=personalDetail.get(0)%>">
+		               		<button type="submit"  class="btn btn-primary" style="top:0px;right:10px;">
+		               			Unfollow
+		               		</button>		               	
+		               	<%} %>
+               		</form>
+               		<%} %>
                 </div>
                 <ul class="navigation">
                     <li class="active">
-                        <a data-toggle="tab" href="#information">
-                            <span class="glyphicon glyphicon-user"></span>
+                        <a data-toggle="tab" href="#information"> 
+                            <span class="glyphicon glyphicon-user"></span>Basic
                         </a>
                     </li>
                     <li>
                         <a data-toggle="tab" href="#settings">
-                            <span class="glyphicon glyphicon-cog"></span>
+                            <span class="glyphicon glyphicon-cog"></span> Problems Solved
                         </a>
                     </li>
                     <li>
-                        <a data-toggle="tab" href="#email">
-                            <span class="glyphicon glyphicon-envelope"></span>
+                        <a data-toggle="tab" href="#email"> 
+                            <span class="glyphicon glyphicon-envelope"></span> Interests
                         </a>
                     </li>
                     <li>
                         <a data-toggle="tab" href="#events">
-                            <span class="glyphicon glyphicon-calendar"></span>
+                            <span class="glyphicon glyphicon-calendar"></span> Followers
                         </a>
                     </li>
                 </ul>
@@ -140,9 +150,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-      
-	</div>
-</div>
+	</div></div>
 </body>
 </html>

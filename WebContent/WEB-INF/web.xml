@@ -69,4 +69,57 @@
     <servlet-name>problemDetails</servlet-name>
     <url-pattern>/problemDetails</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>accountUpdate</display-name>
+    <servlet-name>accountUpdate</servlet-name>
+    <servlet-class>register.AccountUpdate</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>accountUpdate</servlet-name>
+    <url-pattern>/accountUpdate</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>scrapeProblems</display-name>
+    <servlet-name>scrapeProblems</servlet-name>
+    <servlet-class>updateProblems.scrapeProblems</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>scrapeProblems</servlet-name>
+    <url-pattern>/scrapeProblems</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>scrapeUserProblems</display-name>
+    <servlet-name>scrapeUserProblems</servlet-name>
+    <servlet-class>updateProblems.scrapeUserProblems</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>scrapeUserProblems</servlet-name>
+    <url-pattern>/scrapeUserProblems</url-pattern>
+  </servlet-mapping>
+  
+<servlet>
+    <description></description>
+    <display-name>search</display-name>
+    <servlet-name>search</servlet-name>
+    <servlet-class>search.Search</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>search</servlet-name>
+    <url-pattern>/search</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>tagProblems</display-name>
+    <servlet-name>tagProblems</servlet-name>
+    <servlet-class>search.Search</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>search</servlet-name>
+    <url-pattern>/tagProblems</url-pattern>
+  </servlet-mapping>
 </web-app>
