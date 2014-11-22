@@ -12,12 +12,7 @@ import register.JdbcSetup;
  
 public class autoComplete {
     private int totalHandles;
-    private String data = "Afghanistan, Albania, Zimbabwe";
-    
-    
-    
-    
-    
+    private String data;
     public ArrayList<String> autoCompleteFunc(String option) {
     	ArrayList<String> handles = new ArrayList<String>();
     	
@@ -29,10 +24,12 @@ public class autoComplete {
     		String selectSql1 = "SELECT handle FROM users";
     		String selectSql2 = "SELECT (personal).name from users";
     		String selectSql3 = "SELECT name from problems";
+    		String selectSql4 = "SELECT name from tags";
     		selectSql = selectSql1;
     		if(option.equals("handle")) selectSql = selectSql1;
-    		else if(option.equals("nameUser"))selectSql = selectSql2;
-    		else if(option.equals("problems"))selectSql = selectSql3;
+    		else if(option.equals("nameUser")) selectSql = selectSql2;
+    		else if(option.equals("problems")) selectSql = selectSql3;
+    		else if(option.equals("tags")) selectSql = selectSql4;
     		
     		pstmt = jd.conn1.prepareStatement(selectSql);
     		//pstmt.setString(1,"%" + handle +"%");

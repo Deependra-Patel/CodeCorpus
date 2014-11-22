@@ -19,7 +19,6 @@
 </style>
 </head>
 <body>
-hello
 <% 
 ArrayList <String> al=new ArrayList <String>();
 
@@ -39,10 +38,15 @@ if (request.getAttribute("usersByName") != null) {
 	System.out.println("sizemaxx" + usersByName.size());
 }
 
+ArrayList <String> tagsByName=new ArrayList <String>();
+if (request.getAttribute("tagsByName") != null) {
+	tagsByName = (ArrayList ) request.getAttribute("tagsByName");
+	System.out.println("sizemaxx" + tagsByName.size());
+}
+
 String searchWhat = new String();
 searchWhat = (String) request.getAttribute("searchWhat");
 if(searchWhat.equals("handle") || searchWhat.equals("nameUser")){
-	out.println("imin");
 	out.println("<div class = 'col-lg-8 col-lg-offset-2'>");
 	out.println("<center>");
 	if((al.size() == 0 && searchWhat.equals("handle")) || (usersByName.size() == 0 && searchWhat.equals("nameUser"))){
@@ -53,7 +57,7 @@ if(searchWhat.equals("handle") || searchWhat.equals("nameUser")){
 		
 		out.println("<h3>Users that matched your query</h3><br>");
 		out.println("<table class = 'table table-bordered table-responsive'>");
-		out.println("<th>Handle</th><th>Name</th><th>Profile</th>");
+		out.println("<th>Handle</th><th>Name</th>");
 		Iterator<String> iterator;
 		if(searchWhat.equals("handle")){
 			iterator = al.iterator();
@@ -68,13 +72,8 @@ if(searchWhat.equals("handle") || searchWhat.equals("nameUser")){
 			String name = parts[1];
 			
 			if(name.equals("null")) name = "Not Available";
-			out.println("<td>");
-			out.println(handle);
-			out.println("</td>");
-			out.println("<td>" + name + "</td>");
-			out.println("<td>");
-			out.println("<a href = './profile?handle=" + handle + "'>View Profile</a>");
-			out.println("</td>");
+			out.println("<td><a target='_blank' href = './profile?handle=" + handle + "'>" + handle + "</a></td>");
+			out.println("<td>"+name+"</td>");
 			i++;
 			out.println("</tr>");
 		}
@@ -164,6 +163,40 @@ else if(searchWhat.equals("problems")){
 	out.println("</center>");
 	out.println("</div>");
 	
+}
+else if(searchWhat.equals("tags")){
+	out.println("imin");
+	out.println("<div class = 'col-lg-8 col-lg-offset-2'>");
+	out.println("<center>");
+	if((tagsByName.size() == 0 && searchWhat.equals("tags"))){
+		out.println("<h3>Sorry! No tags matched your request</h3>");
+		
+	}
+	else{
+		
+		out.println("<h3>Tags that matched your query</h3><br>");
+		out.println("<table class = 'table table-bordered table-responsive'>");
+		out.println("<th>Tag Name</th>");
+		Iterator<String> iterator;
+		iterator = tagsByName.iterator();
+		
+		int i = 1;
+		while (iterator.hasNext()){
+			out.println("<tr>");
+			String tag = iterator.next();
+			
+			
+			out.println("<td>");
+			out.println(tag);
+			out.println("</td>");
+			
+			i++;
+			out.println("</tr>");
+		}
+		out.println("<br>");
+		out.println("</table>");
+	}
+	out.println("</div>");
 }
 %>
 </body>

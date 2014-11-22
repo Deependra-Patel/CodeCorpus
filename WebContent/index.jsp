@@ -17,6 +17,29 @@
 	<div class="col-lg-6 col-lg-offset-3 register_form"> 
 		<h3><center>LOGIN</center></h3>
 		If not registered then <a href="./register.jsp">Register</a><hr>
+	<% String message="";
+		if(request.getAttribute("message")!=null)
+			message = (String)request.getAttribute("message");
+		else if(request.getParameter("message")!=null)
+			message = request.getParameter("message");
+	if(!message.equals("")){ %>
+	    <div class="alert alert-danger alert-error">
+	        <a href="#" class="close" data-dismiss="alert">&times;</a>
+		    <strong>Error!</strong> <%=message %>
+		</div>
+	<%} %>
+	<%String err = request.getParameter("err"); 
+		if(err!=null && err.equals("1")){ %>
+	    <div class="alert alert-danger alert-error">
+	        <a href="#" class="close" data-dismiss="alert">&times;</a>
+		    <strong>Error!</strong>Please Signin first!
+		</div> 
+	<%} else if(err!=null && err.equals("3")){ %>
+	    <div class="alert alert-success">
+	        <a href="#" class="close" data-dismiss="alert">&times;</a>
+		    <strong>Succesfully Logged Out!</strong>
+		</div>  
+	<%} %>	
 	<form method="POST"  id="login" action="login">
 	    <table> 
 	        <tr>   

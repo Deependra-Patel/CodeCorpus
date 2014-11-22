@@ -12,7 +12,7 @@
 		out.println("<td>"+problemDetails.get(5)+"</td>");
 		out.println("<td>"+problemDetails.get(6)+"</td><td>");	
 		for(String tag:tags){
-			out.println("<a href = './tagProblems?tag='" + tag + "' class = 'btn btn-primary btn-xs'>" + tag + " </a>");
+			out.println("<a href = './tagProblems?tag=" + tag + "' class = 'btn btn-primary btn-xs'>" + tag + " </a>");
 		}
 		out.println("</td>");
 	%>

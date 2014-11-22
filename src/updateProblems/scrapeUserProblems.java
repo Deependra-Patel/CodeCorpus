@@ -303,32 +303,20 @@ public class scrapeUserProblems extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		/*System.out.println("tryng to connect..");
-		createConnection(); 
-		System.out.println("connected !");*/
-		updateUserInfo("teamrush");
-		/*try{
-			String query = "select handle from users";
-    		PreparedStatement pstmt = setUp.conn1.prepareStatement(query);
-    		ResultSet rs = pstmt.executeQuery();
-    		while(rs.next()){
-    			String tmp = rs.getString(1);
-    			updateUserInfo(tmp);
-    		}
-    		rs.close();
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
-		destroyConnection();*/
 	}
-
+ 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("Post req");
+		String type = request.getParameter("UpdateType");
+		if(type.equals("allUsers")){
+			String message = updateAll();
+			PrintWriter pw = response.getWriter();
+			pw.write(message);
+		}
 	}
 
 }

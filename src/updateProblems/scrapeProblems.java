@@ -9,6 +9,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -343,6 +345,11 @@ public class scrapeProblems extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(true);
+		String handle = (String) session.getAttribute("handle");
+		if(handle!="admin"){
+			response.sendRedirect("./index.jsp?err=1");
+		}
 		createConnection();
 		getPresentCodes();
 		getTagMap();
@@ -373,6 +380,11 @@ public class scrapeProblems extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(true);
+		String handle = (String) session.getAttribute("handle");
+		if(handle!="admin"){
+			response.sendRedirect("./index.jsp?err=1");
+		}
 		int err_code = createConnection();
 		if (err_code == 1){
 			getPresentCodes();System.out.println("Codes Obtained");

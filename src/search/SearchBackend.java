@@ -10,6 +10,38 @@ import javax.servlet.ServletException;
 import register.JdbcSetup;
 
 public class SearchBackend {
+	ArrayList<String> searchTagByName(String tag){
+		ArrayList<String> arrayList = new ArrayList<String>();
+		try {
+			JdbcSetup jd = null;
+			jd = new JdbcSetup();
+			PreparedStatement pstmt = null;
+			String selectSql = "SELECT name FROM tags WHERE name like ?";
+			pstmt = jd.conn1.prepareStatement(selectSql);
+			pstmt.setString(1,"%" + tag +"%");
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {              
+			    arrayList.add(rs.getString("name"));
+			    System.out.println(rs.getString(1));
+			    //System.out.println(rs.getString(2));
+			    
+			}
+			jd.destroy();
+			
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			arrayList.add("Server Down");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			arrayList.add("Server Down");
+		}
+		
+		return arrayList;
+	}
+	
 	ArrayList<String> searchUserById(String handle){
 		ArrayList<String> arrayList = new ArrayList<String>();
 		try {

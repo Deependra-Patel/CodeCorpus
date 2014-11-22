@@ -2,6 +2,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%if(session.getAttribute("handle")==null || !(session.getAttribute("handle").equals("admin") && session.getAttribute("passwd").equals("123"))){response.sendRedirect("./index.jsp?err=1");} %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -21,7 +23,7 @@
 		document.getElementById("addedProbList").style.display='block';
 	};
 	function updateAllUsers(){
-		$("#addedProbList").load('./scrapeProblems', {
+		$("#addedProbList").load('./scrapeUserProblems', {
 			"UpdateType" : "allUsers"
 		});
 		makeDivVisible();
@@ -112,8 +114,14 @@ navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 		</li>
 	</ul>
 	</li>
+	<li><button class="btn btn-primary" type = "submit" onclick="updateAllUsers();" name="updateAll">Update Data for All Users</button>
+	</li>
+	<li>
+		<form action="./logout">
+			<button type="submit" class="btn btn-primary" type = "submit">Logout</button>
+		</form>
+	</li>
 </ul>
-<button class="btn btn-primary" type = "submit" onclick="updateAllUsers();" name="updateAll">Update Data for All Users</button>
 </div>
 <!--/.nav-collapse --></div>
 </nav>

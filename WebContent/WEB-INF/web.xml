@@ -79,7 +79,6 @@
     <servlet-name>accountUpdate</servlet-name>
     <url-pattern>/accountUpdate</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description></description>
     <display-name>scrapeProblems</display-name>
@@ -90,7 +89,6 @@
     <servlet-name>scrapeProblems</servlet-name>
     <url-pattern>/scrapeProblems</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description></description>
     <display-name>scrapeUserProblems</display-name>
@@ -101,8 +99,7 @@
     <servlet-name>scrapeUserProblems</servlet-name>
     <url-pattern>/scrapeUserProblems</url-pattern>
   </servlet-mapping>
-  
-<servlet>
+  <servlet>
     <description></description>
     <display-name>search</display-name>
     <servlet-name>search</servlet-name>
@@ -122,4 +119,41 @@
     <servlet-name>search</servlet-name>
     <url-pattern>/tagProblems</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>logout</display-name>
+    <servlet-name>logout</servlet-name>
+    <servlet-class>login.Logout</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>logout</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>suggestProblems</display-name>
+    <servlet-name>suggestProblems</servlet-name>
+    <servlet-class>suggestions.Suggest_problems</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>suggestProblems</servlet-name>
+    <url-pattern>/suggestions</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>searchPage</display-name>
+    <servlet-name>searchPage</servlet-name>
+    <servlet-class>search.Search</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>searchPage</servlet-name>
+    <url-pattern>/home</url-pattern>
+  </servlet-mapping>
+      
+  <error-page>
+    <error-code>404</error-code>
+    <location>/404.jsp</location>
+  </error-page>
 </web-app>

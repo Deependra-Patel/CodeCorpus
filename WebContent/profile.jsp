@@ -120,9 +120,10 @@
                             <table class="table table-hover">
                             	<%	
                             	if(problemsAttempted!=null)
-                            	for(String code: problemsAttempted){
-                            		out.println("<tr id='"+code+"'><td><a '>"+code+"</a></td></tr>");
-                            	}
+                            		out.println("<thead><tr><th>Code</th><th>Name</th><th>Date</th><th>Diff</th><th>Users</th><th>Acc.</th><th>Tags</th></tr></thead>");
+	                            	for(String code: problemsAttempted){
+	                            		out.println("<tr id='"+code+"'><td><a '>"+code+"</a></td></tr>");
+	                            	}
                             	%>
                             </table>
                         </div>

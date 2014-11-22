@@ -13,6 +13,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Code Corpus</title>
+<link href="./css/style.css" rel="stylesheet"/>
     <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
 
@@ -71,7 +72,7 @@ function addBox(){
                       <button type="submit" class="btn-u">Update Problems Solved</button>
                   </footer>
               </form>
-              <br><hr>
+             	
               <form action="accountUpdate" method="post" id="sky-form4" class="sky-form">
                   <header>Update Details</header>
               <input type="hidden" value="personal" name="type">
@@ -157,21 +158,24 @@ function addBox(){
 
                       </div>	
                   <% }%> 							
-                  </fieldset>      
-                  <button onclick="addBox();return false;" class="btn">Add</button>	                          
+                  </fieldset>      	                          
                   <footer>
+                       <button onclick="addBox();return false;" class="btn">Add</button>
                       <button type="submit" class="btn-u">Update</button>
                   </footer>
               </form> 
               <form class="sky-form"><header> Following</header> 
-              	<table class="table table-hover"><tbody><tr>
+              
+              	<fieldset>
+              	<table class="table"><tbody> 
 
 
               	<%for(String followingHandle:following){ %>
-              		<tr><td><a target="_blank" href="./profile?handle=<%=followingHandle%>" class="btn btn-primary btn-xs"><%=followingHandle%> </a></td></tr>
+              		<tr><td><a target="_blank" href="./profile?handle=<%=followingHandle%>" class="btn btn-primary btn-xs" style="background-color:black;"><%=followingHandle%> </a></td></tr>
               	<%} %>
               	</tbody>
               	</table>
+              	</fieldset><footer></footer>  
               </form>                              
               <!-- End Reg-Form -->
           </div>

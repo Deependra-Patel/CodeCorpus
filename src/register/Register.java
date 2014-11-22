@@ -15,28 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Register() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("register here by post");
+		
+		String message = "Please fill ";
 		String name = request.getParameter("name");
 		String 	handle = request.getParameter("handle");
 		String email = request.getParameter("email");
@@ -44,8 +27,17 @@ public class Register extends HttpServlet {
 		String insti = request.getParameter("insti");	
 		String dob = request.getParameter("dob");
 		String region = request.getParameter("region");
-		RegisterBackend registers = new RegisterBackend();
-		registers.registerUser(name, handle, email, passwd, insti, dob, region);		
+		if(name==null || name.equals("")) 
+			message = message + "name";
+		if(handle==null || handle.equals(""))
+			message = message + " handle";
+		if(passwd==null || passwd.equals(""))
+			message = message + " password";
+		if(message.equals("Please fill")){
+			RegisterBackend registers = new RegisterBackend();
+			registers.registerUser(name, handle, email, passwd, insti, dob, region);	
+		}
+		else response.sendRedirect("./index.jsp?message="+message);
 	}
 
 }

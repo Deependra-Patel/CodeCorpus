@@ -29,6 +29,7 @@ public class ProfileBackend {
 			jd = new JdbcSetup();
 			PreparedStatement pstmt = null;
 			String selectSql = "SELECT userid, handle, rank, (personal).name, (personal).dob, (personal).region, (personal).email_id, (personal).institution FROM users WHERE handle=?";
+			System.out.println(selectSql);
 			pstmt = jd.conn1.prepareStatement(selectSql);
 			pstmt.setString(1, handle);
 			ResultSet rs = pstmt.executeQuery();
@@ -38,11 +39,15 @@ public class ProfileBackend {
 				ud.personalDetail.add(String.valueOf(rs.getInt(1)));
 				ud.personalDetail.add(rs.getString(2));
 				ud.personalDetail.add(String.valueOf(rs.getInt(3)));
+				System.out.println("arbit3"); 
 				ud.personalDetail.add(rs.getString(4));
-				ud.personalDetail.add(rs.getDate(5).toString());
+				System.out.println("arbit4");
+				ud.personalDetail.add(String.valueOf(rs.getDate(5)));
 				ud.personalDetail.add(rs.getString(6));
+				System.out.println("arbit5");
 				ud.personalDetail.add(rs.getString(7));
 				ud.personalDetail.add(rs.getString(8));
+				System.out.println("arbit");
 			}
 			else return null;
 			
@@ -63,14 +68,7 @@ public class ProfileBackend {
 			while(rs.next()){
 				ud.interests.add(rs.getString(1));
 			}	
-			System.out.println(selectSql); 
-			selectSql = "SELECT tags.name from users NATURAL JOIN users_interests INNER JOIN tags ON users_interests.tagid=tags.tagid WHERE handle=?";
-			pstmt = jd.conn1.prepareStatement(selectSql);
-			pstmt.setString(1, handle);
-			rs = pstmt.executeQuery();
-			while(rs.next()){
-				ud.interests.add(rs.getString(1));
-			}
+			
 			System.out.println("userid"+userid);
 			selectSql = "SELECT users.handle from followers INNER JOIN users ON users.userid=followers.follower where followers.followed = ?";
 			pstmt = jd.conn1.prepareStatement(selectSql);

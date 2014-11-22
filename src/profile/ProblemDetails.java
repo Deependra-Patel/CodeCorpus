@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/ProblemDetails")
 public class ProblemDetails extends HttpServlet {
@@ -23,13 +24,20 @@ public class ProblemDetails extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String code = request.getParameter("code");
-		ProfileBackend problemDetails = new ProfileBackend();
-		ProblemDetailsObj obj = new ProblemDetailsObj();
-		obj = problemDetails.details(code);
-		request.setAttribute("details", obj.problemInfo);
-		request.setAttribute("tags", obj.problemTags);		
-		request.getRequestDispatcher("./problemInfo.jsp").forward(request, response);
+		HttpSession session = request.getSession(true);
+		if(session.getAttribute("handle")==null){
+			response.sendRedirect("./index.jsp?err=1");
+		}
+		else {
+			String handle = (String) session.getAttribute("handle");
+			String code = request.getParameter("code");
+			ProfileBackend problemDetails = new ProfileBackend();
+			ProblemDetailsObj obj = new ProblemDetailsObj();
+			obj = problemDetails.details(code);
+			request.setAttribute("details", obj.problemInfo);
+			request.setAttribute("tags", obj.problemTags);		
+			request.getRequestDispatcher("./problemInfo.jsp").forward(request, response);
+		}
 	}
 
 }

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/Login")
 public class Login extends HttpServlet {
@@ -21,15 +22,31 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String handle = request.getParameter("handle");
 		String passwd = request.getParameter("passwd");
-		LoginBackend log = new LoginBackend();
-		String res = log.login(handle, passwd);
-		if(res.equals("true")){
-			response.sendRedirect("./home.jsp");
+		if(handle.equals("admin")){
+			if(passwd.equals("123")){
+				HttpSession session = request.getSession(true);
+				session.setAttribute("handle", handle);
+				session.setAttribute("passwd", passwd);
+				request.getRequestDispatcher("./admin.jsp").forward(request, response);
+			}else {
+				request.setAttribute("message", "Please enter correct passsword.");
+				request.getRequestDispatcher("./index.jsp").forward(request, response);				
+			}
 		}
 		else {
-			PrintWriter pr =  response.getWriter();
-			pr.print(res);
-			System.out.println(res);
+			LoginBackend log = new LoginBackend();
+			myPair mp = new myPair();
+			mp = log.login(handle, passwd);
+			String message = mp.message;
+			if(message.equals("true")){
+				HttpSession session = request.getSession(true);
+				session.setAttribute("handle", handle);
+				session.setAttribute("userid", mp.userid);
+				response.sendRedirect("./home");
+			}
+			else {
+				response.sendRedirect("./index.jsp?message="+mp.message);
+			}
 		}
 	}
 }
