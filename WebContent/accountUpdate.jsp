@@ -23,11 +23,6 @@
     <link rel="stylesheet" href="assets/plugins/sky-forms/version-2.0.1/css/custom-sky-forms.css">
 
     <!-- CSS Theme -->    
-    <link rel="stylesheet" href="assets/css/theme-colors/default.css" id="style_color">
-    <link rel="stylesheet" href="assets/css/theme-skins/dark.css">
-
-    <!-- CSS Customization -->
-    <link rel="stylesheet" href="assets/css/custom.css">
     <script type="text/javascript" src="js/jquery.js"></script>
 <script>
 var num_interests = <%=interests.size()%>;

@@ -187,6 +187,7 @@ public class Suggest_problems extends HttpServlet {
     			}
     			else{
     				tagWeight.put(_tagid, wsolved);
+    				interest.add(_tagid);
     			}
     		}
     		rs.close();
@@ -310,7 +311,7 @@ public class Suggest_problems extends HttpServlet {
     	int l = problemWeight.size();
     	if (l < 25){
     		int _l = Math.max(solvedProblems.size(), 25);
-    		String query = "select code from problems order by (statistic).accuracy desc limit ?";
+    		String query = "select code from problems where difficulty = 'easy' order by (statistic).accuracy desc limit ?";
     		PreparedStatement pstmt;
 			try {
 				pstmt = setUp.conn1.prepareStatement(query);
@@ -341,7 +342,7 @@ public class Suggest_problems extends HttpServlet {
     	
     	ValueComparator bvc =  new ValueComparator(problemWeight);
     	TreeMap<String, Double> sortedMap= new TreeMap<String, Double>(bvc);
-    	sortedMap.putAll(problemWeight);
+    	sortedMap.putAll(problemWeight); //System.out.println(sortedMap);
         Set set = sortedMap.entrySet();
         // Get an iterator
         Iterator i = set.iterator();
@@ -360,7 +361,7 @@ public class Suggest_problems extends HttpServlet {
         int pos = tot - 1;
         int _pos = 0;
         while (pos >= 0 && _pos < 25){
-        	code_list.add(arr[pos]);
+        	code_list.add(arr[_pos]);
         	pos--;
         	_pos++;
         }
@@ -420,6 +421,9 @@ public class Suggest_problems extends HttpServlet {
     		getFollowedPeople();// System.out.println("followed " + tagWeight.size() + " - followed " + followed.size() + " new " + problemWeight.size());
     		getInterestedProblems();
     		handleCornerCaseOfDeficiency();// System.out.println("followed " + tagWeight.size() + " new " + problemWeight.size());
+    		//System.out.println(tagWeight);
+    		//System.out.println(problemWeight);
+    		//System.out.println(interest);
     		sortProblem();
     		destroyConnection();
     	}

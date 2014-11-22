@@ -79,6 +79,7 @@ public class RegisterBackend {
 			} catch (SQLException e) { 
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				System.out.println("date");
 				message = "Error inserting to user.";
 			}						
 		} catch (ServletException e) {
@@ -89,8 +90,8 @@ public class RegisterBackend {
 		
 		return message;
 	}
-	void registerUser(String name, String handle, String email, String passwd, String insti, String dob, String region){
-		insertIntoUsers(name, handle, email, passwd, insti, dob, region);
+	String registerUser(String name, String handle, String email, String passwd, String insti, String dob, String region){
+		return insertIntoUsers(name, handle, email, passwd, insti, dob, region);
 	}
 	UserDetails userDetails(String handle){
 		try {

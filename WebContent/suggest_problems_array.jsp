@@ -7,11 +7,10 @@
 <title>Insert title here</title>
     <%@page import="java.io.PrintWriter"%> <%@page import="java.util.ArrayList"%>
 	<link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-	<link href="./css/style.css" rel="stylesheet"/>
 	    <!-- CSS Global Compulsory -->
 	    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
-	    <link rel="stylesheet" href="assets/css/style.css">   
-    <link rel="stylesheet" href="assets/css/custom.css">
+	    <link rel="stylesheet" href="assets/css/style.css"> 
+	    	<link href="./css/style.css" rel="stylesheet"/>  
 	<script src="./js/jquery.js"></script>
 	<script src="./bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" language="javascript">

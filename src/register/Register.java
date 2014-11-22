@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class Register
@@ -33,9 +34,15 @@ public class Register extends HttpServlet {
 			message = message + " handle";
 		if(passwd==null || passwd.equals(""))
 			message = message + " password";
-		if(message.equals("Please fill")){
+		if(message.equals("Please fill ")){
 			RegisterBackend registers = new RegisterBackend();
-			registers.registerUser(name, handle, email, passwd, insti, dob, region);	
+			if(dob==null || (dob.length()!=10) || dob.charAt(4)!='-' || dob.charAt(7)!='-')
+				dob = "1111-11-11";
+			message = registers.registerUser(name, handle, email, passwd, insti, dob, region);
+			if(message.equals("")){
+				message = "Succesfully registered please login.";
+			}
+			response.sendRedirect("./index.jsp?message="+message);
 		}
 		else response.sendRedirect("./index.jsp?message="+message);
 	}

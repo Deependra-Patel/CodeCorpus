@@ -99,4 +99,6 @@ body {
 #settings a{
 	cursor:pointer;
 }
-	
+a{
+	color:blue;
+}	

@@ -1,5 +1,5 @@
       <!--=== Header v3 ===-->    
-    <div class="header-v3 header-sticky">
+    <div style="background-color:white;" class="header-v3 header-sticky">
         <!-- Navbar -->
         <div class="navbar navbar-default mega-menu" role="navigation">
             <div class="container">
@@ -9,7 +9,7 @@
                         <span class="sr-only">Toggle navigation</span>
                         <span class="fa fa-bars"></span>
                     </button>
-                    <a class="navbar-brand" href="/">
+                    <a class="navbar-brand" href="./home">
                         CodeCorpus
                     </a>
                 </div>
@@ -33,20 +33,13 @@
                                 My Profile
                             </a>
                         </li> 
-						<li class="dropdown active">
-			                  <div class="collapse navbar-collapse" id="loggedin">
-						      <ul class="nav navbar-nav navbar-right">
-								<li class="dropdown">
-						          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi! <%=session.getAttribute("handle") %> <span class="glyphicon glyphicon-user pull-right"></span></a>
-						          <ul class="dropdown-menu">
-						            <li><a href="./accountUpdate">Account Settings <span class="glyphicon glyphicon-cog pull-right"></span></a></li>
-						            <li><a href="./logout">Sign Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
-						          </ul>
-						        </li>         
-						      </ul>
-						    </div> 
-                        
-                        </li>        
+				        <li class="dropdown pull-right"> 
+				       <a href="#" data-toggle="dropdown">Hi! <%=session.getAttribute("handle") %> <span class="glyphicon glyphicon-user pull-right"></span></a>
+					          <ul class="dropdown-menu">
+					            <li><a href="./accountUpdate">Account Settings <span class="glyphicon glyphicon-cog pull-right"></span></a></li>
+					            <li><a href="./logout">Sign Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
+					    	</ul>    
+					    	</li>    
                     </ul>
                 </div><!--/navbar-collapse-->               
             </div>    

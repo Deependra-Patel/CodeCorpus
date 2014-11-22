@@ -32,7 +32,7 @@
                     <span class="error-v1-title">404</span>
                     <span>That’s an error!</span>
                     <p>The requested URL was not found on this server. That’s all we know.</p>
-                    <a class="btn-u btn-bordered" href="/home">Back Home</a>
+                    <a class="btn-u btn-bordered" href="./home">Back Home</a>
                 </div>
             </div>
         </div>

@@ -85,6 +85,7 @@ if(searchWhat.equals("handle") || searchWhat.equals("nameUser")){
 else if(searchWhat.equals("problems")){
 	
 	out.println("<div class = 'col-lg-8 col-lg-offset-2'>");
+	out.println("<a href='./home'>Home</a>"); 
 	if(problemDetails.size() == 0){
 		out.println("<center><h3>Sorry! No problems matched your query</h3><br></center>");
 	}
@@ -165,7 +166,6 @@ else if(searchWhat.equals("problems")){
 	
 }
 else if(searchWhat.equals("tags")){
-	out.println("imin");
 	out.println("<div class = 'col-lg-8 col-lg-offset-2'>");
 	out.println("<center>");
 	if((tagsByName.size() == 0 && searchWhat.equals("tags"))){
@@ -187,7 +187,7 @@ else if(searchWhat.equals("tags")){
 			
 			
 			out.println("<td>");
-			out.println(tag);
+			out.println("<a href='./tagProblems?tag="+tag+"'>"+tag+"</a>");
 			out.println("</td>");
 			
 			i++;

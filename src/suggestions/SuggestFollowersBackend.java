@@ -17,6 +17,7 @@ import javax.swing.text.html.HTMLDocument.Iterator;
 import register.JdbcSetup;
 
 public class SuggestFollowersBackend {
+	int numResults = 15;
 	ArrayList<String> suggestFollowersHandle(String handle){
 		ArrayList<String> arrayList = new ArrayList<String>();
 		
@@ -68,8 +69,8 @@ public class SuggestFollowersBackend {
 		}
 		
 		ArrayList<Integer> filteredUids = new ArrayList<Integer>();
-		filterFollowers+=" and userid not in ((SELECT follower from followers where followed = ?) union " +
-				"(SELECT followed from followers where follower = ?)) ";
+		filterFollowers+=" and userid not in " +
+				"(SELECT followed from followers where follower = ?) ";
 		
 		try {
 			JdbcSetup jd = null;
@@ -78,7 +79,6 @@ public class SuggestFollowersBackend {
 			
 			pstmt = jd.conn1.prepareStatement(filterFollowers);
 			pstmt.setInt(1, userid);
-			pstmt.setInt(2, userid);
 			System.out.println(pstmt);
 			//Object[] temp = {1,2,3};
 			//Array array = jd.conn1.createArrayOf("VARCHAR", temp);
@@ -105,9 +105,30 @@ public class SuggestFollowersBackend {
 		
 		String query = "SELECT handle, (personal).name FROM users WHERE userid in (";
 		
-		Integer [] filteredUids_array = filteredUids.toArray(new Integer[uids.size()]);
+		Integer [] filteredUids_array = filteredUids.toArray(new Integer[filteredUids.size()]);
+		boolean done = false;
+		for(int i = 0; i < uids.size(); i++){
+			for(int j = 0; j < filteredUids.size(); j++){
+				if(uids_array[i]==filteredUids_array[j]){
+					String temp = filteredUids_array[j].toString();
+					query+=temp;
+					if(i < numResults){
+						query+=",";
+						
+					}
+					else if(i >= numResults){
+						query+=")";
+						done = true;
+					}
+					break;
+					}
+			}
+			if (done) break;
+		}
 		
-		for(int i = 0; i < filteredUids.size(); i++){
+		/*
+		for(int i = 0; i < filteredUids.size() && i < numResults; i++){
+			
 			String temp = filteredUids_array[i].toString();
 			query+=temp;
 			if(i != filteredUids.size() - 1){
@@ -118,7 +139,7 @@ public class SuggestFollowersBackend {
 				query+=")";
 				
 			}
-		}
+		}*/
 		
 		//for(int i = 0; i < uids.size(); i++){
 			//int parameter = uids_array[i];
@@ -126,7 +147,6 @@ public class SuggestFollowersBackend {
 				JdbcSetup jd = null;
 				jd = new JdbcSetup();
 				PreparedStatement pstmt = null;
-				String selectSql = "SELECT handle, (personal).name FROM users WHERE userid in (?)";
 				pstmt = jd.conn1.prepareStatement(query);
 				System.out.println(pstmt);
 				//Object[] temp = {1,2,3};
@@ -162,11 +182,11 @@ public class SuggestFollowersBackend {
 		ArrayList<Integer> arrayList = new ArrayList<Integer>();
 		HashMap<Integer, Double> weights = new HashMap<Integer, Double>();
 		
-		double c1 = 30.0;
-		double c2 = 30.0;
-		double c3 = 30.0;
-		double c4 = 10.0;
-		int numResults = 15;
+		double c1 = 10.0;
+		double c2 = 60.0;
+		double c3 = 60.0;
+		double c4 = 1.0;
+		
 		//Fetching the users who have in their interest table, tags which correspond to the problems solved by the user
 		try {
 			JdbcSetup jd = null;
@@ -329,8 +349,8 @@ public class SuggestFollowersBackend {
 		System.out.println(sorted_weights);
 		Object[] uids = sorted_weights.keySet().toArray();
 		int size = sorted_weights.size();
-		for(int i = 0; i < numResults && i < size; i++){
-			arrayList.add((Integer) uids[size - i - 1]);
+		for(int i = 0; i < 2*numResults && i < size; i++){
+			arrayList.add((Integer) uids[i]);
 		}
 		
 		return arrayList;

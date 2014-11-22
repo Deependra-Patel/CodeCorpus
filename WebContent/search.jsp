@@ -26,7 +26,7 @@
 <title>Insert title here</title>
 <script type="text/javascript" language="javascript">
 	$(document).ready(function() {
-	   $("#submitBtn").click(function(event){
+	   $("#submit").click(function(event){
 		   var type = $("#searchOptions").val();
 		   var word = document.getElementById("searchBox").value;
 	       $("#results").load('./search', {"options":type, "keywords": word} );
@@ -40,6 +40,13 @@
 		border-color:black;
 		border:2px;
 	}
+	#searchBox{
+		width:300px;
+		height:35px;
+	}
+	.form-wrapper{
+		width:600px;
+	}
 </style>
 </head>
 <body>
@@ -48,20 +55,25 @@
 <div class="form-search">
 <div class="input-group">
   
+<div class="form-wrapper" style="margin-bottom:300px;">
+	<ul>
+	    <li style="display:inline;"><input id="searchBox" type="text" placeholder="Search for CSS3, HTML5, jQuery ..." required></li>
+	    <li style="display:inline;"><select style="width:100px;" class="form-control" id="searchOptions" name="options" onChange="selectCall()">
+		  <option value="handle">Users</option>
+		  <option value="problems">Problems</option>
+		  <option value="nameUser">Name of the USer</option>
+		  <option value="tags">Tags</option>
+		 </select>
+		 </li>
+	    <li style="display:inline;"><input type="submit" value="go" id="submit"> </li>
+    </ul>
+</div>
+	
+  </div></div></div>	<!-- 
+	<input id = "searchBox"  placeholder="Type your query" name = "keywords" type = "text"> -->
 
-	<select id="searchOptions" name="options" onChange="selectCall()">
-	  <option value="handle">Users</option>
-	  <option value="problems">Problems</option>
-	  <option value="nameUser">Name of the USer</option>
-	  <option value="tags">Tags</option>
-	 </select>
-	
-	<button id="submitBtn" class="btn btn-primary" value = "Search">Search</button>
-	
-	
-  </div>	
-	<input id = "searchBox"  placeholder="Type your query" name = "keywords" type = "text">
-	
+<div style="margin-top:120px;" id="results"></div>
+</body>
 	<script src="./js/jquery.js"></script>
 		<script type="text/javascript" src="./js/typeahead.js"></script>
        	<script type="text/javascript">
@@ -285,9 +297,4 @@
 	});
 
 		</script>
-
-</div>
-<div id="results">hi</div>
-</div>
-</body>
 </html>

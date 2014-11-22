@@ -25,7 +25,7 @@
 	if(!message.equals("")){ %>
 	    <div class="alert alert-danger alert-error">
 	        <a href="#" class="close" data-dismiss="alert">&times;</a>
-		    <strong>Error!</strong> <%=message %>
+		    <strong></strong> <%=message %>
 		</div>
 	<%} %>
 	<%String err = request.getParameter("err"); 

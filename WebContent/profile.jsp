@@ -16,7 +16,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-<link href="./css/style.css" rel="stylesheet"/>
+
     <!-- CSS Global Compulsory -->
     <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/plugins/revolution-slider/rs-plugin/css/settings.css" type="text/css" media="screen">
     <!--[if lt IE 9]><link rel="stylesheet" href="assets/plugins/revolution-slider/rs-plugin/css/settings-ie8.css" type="text/css" media="screen"><![endif]-->
-
+<link href="./css/style.css" rel="stylesheet"/>
 
     <!-- CSS Customization -->
     <link rel="stylesheet" href="assets/css/custom.css">
